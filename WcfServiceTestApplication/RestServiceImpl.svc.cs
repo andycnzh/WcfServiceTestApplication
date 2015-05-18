@@ -33,8 +33,17 @@ namespace WcfServiceTestApplication
                 System.IdentityModel.Policy.AuthorizationContext authContext = OperationContext.Current.ServiceSecurityContext.AuthorizationContext;
                 if (authContext.ClaimSets != null)
                 {
+                    message += " [*] ServiceSecurityContext.Current.IsAnonymous is " + ServiceSecurityContext.Current.IsAnonymous + ";";
+
+                    message += " PrimaryIdentity: " + ServiceSecurityContext.Current.PrimaryIdentity.Name + ";";
+
+                    message += " WindowsIdentity: " + ServiceSecurityContext.Current.WindowsIdentity.Name + ";";
+
+                    message += " ClaimSets count is " + ServiceSecurityContext.Current.AuthorizationContext.ClaimSets.Count + ";";
+
                     if (authContext.ClaimSets.Count > 0)
                     {
+
                         X509Certificate2 cert = ((X509CertificateClaimSet)authContext.ClaimSets[0]).X509Certificate;
 
                         // verify the certrificate date
